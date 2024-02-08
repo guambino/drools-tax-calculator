@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /drools/tax/calculator
+
+spring:
+  application:
+    name: drools-tax-calculator
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:h2:mem:DROOLS_TAX_CALCULATOR;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: h2h
+    password: h2h
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
