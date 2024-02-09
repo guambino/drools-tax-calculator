@@ -21,6 +21,6 @@ public class EmployeeRepositoryTest extends AbstractTaxCalculatorTest {
         List<Employee> employees = employeeRepository.findAll();
         assertNotNull(employees);
         assertFalse(employees.isEmpty());
-        assertEquals(1, employees.size());
+        assertEquals(2, employees.size());
     }
 }
