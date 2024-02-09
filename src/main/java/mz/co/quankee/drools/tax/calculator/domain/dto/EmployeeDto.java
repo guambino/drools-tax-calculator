@@ -20,4 +20,8 @@ public class EmployeeDto implements Serializable {
     private Integer employeeAge;
 
     private Double monthlyIncome;
+
+    private Double netMonthlyIncome;
+
+    private Double tax;
 }
