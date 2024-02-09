@@ -1,0 +1,27 @@
+package mz.co.quankee.drools.tax.calculator;
+
+import mz.co.quankee.drools.tax.calculator.domain.dto.EmployeeDto
+
+dialect  "java"
+
+rule "Validate Age - Minor"
+    when
+        $employee: EmployeeDto( employeeAge < 18 )
+    then
+        modify($employee){
+            setTax(0.0),
+            setNetMonthlyIncome(0.0),
+            setObservation("Employee is a minor. Not allowed to work")
+        }
+end
+
+rule "Validate Age - Retired"
+    when
+        $employee: EmployeeDto( employeeAge > 65 )
+    then
+        modify($employee){
+            setTax(0.0),
+            setNetMonthlyIncome(179990.0),
+            setObservation("Employee is retired.")
+        }
+end

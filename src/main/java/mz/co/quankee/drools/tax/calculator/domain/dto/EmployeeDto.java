@@ -24,4 +24,6 @@ public class EmployeeDto implements Serializable {
     private Double netMonthlyIncome;
 
     private Double tax;
+
+    private String observation;
 }
