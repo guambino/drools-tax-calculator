@@ -26,9 +26,9 @@ rule "Validate Age - Retired"
         }
 end
 
-rule "Calculate Salary for 18 with less than 10000.00"
+rule "Calculate Salary for 18 an 65  with less than 10000.00"
     when
-        $employee: EmployeeDto( employeeAge == 18 && monthlyIncome < 10000.00)
+        $employee: EmployeeDto( (employeeAge >= 18 && employeeAge <= 65) && monthlyIncome < 10000.00)
     then
         modify($employee){
             setTax(0.0),
@@ -37,14 +37,47 @@ rule "Calculate Salary for 18 with less than 10000.00"
         }
 end
 
-rule "Calculate Salary for 18 with income between 10000.00 and 20000.00"
+rule "Calculate Salary for 18 and 30 with income between 10000.00 and 20000.00"
     when
-        $employee: EmployeeDto( employeeAge == 18 && (monthlyIncome > 10000.00 && monthlyIncome < 20000.00) )
+        $employee: EmployeeDto((employeeAge >= 18 && employeeAge <= 30) && (monthlyIncome > 10000.00 && monthlyIncome < 20000.00) )
     then
         modify($employee){
             setTax(10.0),
             setNetMonthlyIncome($employee.getMonthlyIncome() - ($employee.getMonthlyIncome() * 0.1)),
             setObservation("Applied Tax of 10.0%")
+        }
+end
+
+rule "Calculate Salary for 18 and 30 with income between 20000.00 and 40000.00"
+    when
+        $employee: EmployeeDto((employeeAge >= 18 && employeeAge <= 30) && (monthlyIncome > 20000.00 && monthlyIncome < 40000.00) )
+    then
+        modify($employee){
+            setTax(15.0),
+            setNetMonthlyIncome($employee.getMonthlyIncome() - ($employee.getMonthlyIncome() * 0.15)),
+            setObservation("Applied Tax of 15.0%")
+        }
+end
+
+rule "Calculate Salary for 30 and 60 with income between 10000.00 and 20000.00"
+    when
+        $employee: EmployeeDto((employeeAge > 30 && employeeAge <= 65) && (monthlyIncome > 10000.00 && monthlyIncome < 20000.00) )
+    then
+        modify($employee){
+            setTax(20.0),
+            setNetMonthlyIncome($employee.getMonthlyIncome() - ($employee.getMonthlyIncome() * 0.2)),
+            setObservation("Applied Tax of 20.0%")
+        }
+end
+
+rule "Calculate Salary for 30 and 60 with income between 20000.00 and 40000.00"
+    when
+        $employee: EmployeeDto((employeeAge > 30 && employeeAge <= 65) && (monthlyIncome > 20000.00 && monthlyIncome < 40000.00) )
+    then
+        modify($employee){
+            setTax(25.0),
+            setNetMonthlyIncome($employee.getMonthlyIncome() - ($employee.getMonthlyIncome() * 0.25)),
+            setObservation("Applied Tax of 25.0%")
         }
 end
 
