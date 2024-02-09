@@ -16,7 +16,7 @@ public class EmployeeSalaryCalculatorTest extends AbstractTaxCalculatorTest {
     private EmployeeSalaryCalculator employeeSalaryCalculator;
 
     @Test
-    public void calculateSalary(){
+    public void calculateSalaryMinor(){
         List<EmployeeDto> employees = getEmployees();
         employeeSalaryCalculator.calculateSalary(employees);
 
@@ -27,6 +27,13 @@ public class EmployeeSalaryCalculatorTest extends AbstractTaxCalculatorTest {
         assertEquals(0.0, employee.getNetMonthlyIncome());
         assertEquals(0.0, employee.getTax());
 
+        //validate for 18 older
+        employee = employees.get(2);
+        assertNotNull(employee.getNetMonthlyIncome());
+        assertNotNull(employee.getTax());
+        assertEquals(9000.0, employee.getNetMonthlyIncome());
+        assertEquals(0.0, employee.getTax());
+
 
         employees.forEach(System.out::println);
 
@@ -34,7 +41,8 @@ public class EmployeeSalaryCalculatorTest extends AbstractTaxCalculatorTest {
 
     private List<EmployeeDto> getEmployees(){
         return List.of(getEmployee("E100001","Hans Solo", 15,0.0),
-                getEmployee("E100002","Luke Skywalker",70,102933.0));
+                getEmployee("E100002","Luke Skywalker",70,102933.0),
+                getEmployee("E100003","Leia Organa",18,9000.0));
     }
 
     private EmployeeDto getEmployee(String employeeId, String employeeName, Integer employeeAge, Double monthlyIncome){
