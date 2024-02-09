@@ -26,7 +26,7 @@ rule "Validate Age - Retired"
         }
 end
 
-rule "Calculate Salary for 18 year Old Employee"
+rule "Calculate Salary for 18 with less than 10000.00"
     when
         $employee: EmployeeDto( employeeAge == 18 && monthlyIncome < 10000.00)
     then
@@ -34,6 +34,17 @@ rule "Calculate Salary for 18 year Old Employee"
             setTax(0.0),
             setNetMonthlyIncome($employee.getMonthlyIncome()),
             setObservation("No taxes apply for this employee")
+        }
+end
+
+rule "Calculate Salary for 18 with income between 10000.00 and 20000.00"
+    when
+        $employee: EmployeeDto( employeeAge == 18 && (monthlyIncome > 10000.00 && monthlyIncome < 20000.00) )
+    then
+        modify($employee){
+            setTax(10.0),
+            setNetMonthlyIncome($employee.getMonthlyIncome() - ($employee.getMonthlyIncome() * 0.1)),
+            setObservation("Applied Tax of 10.0%")
         }
 end
 
